@@ -1,0 +1,6 @@
+flickrapi
+python-twitter
+pyopenssl
+ndg-httpsclient
+pyasni
+bitly_api
