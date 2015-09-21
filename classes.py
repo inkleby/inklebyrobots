@@ -91,6 +91,13 @@ class Robot(object):
         
         return False
         
+    def clear_credentials(self,creds,name):
+        api = twitter.Api(**creds)
+        tweets = api.GetUserTimeline(screen_name = name)
+        for t in tweets[:100]:
+            print api.DestroyStatus(t.id)
+        
+                    
     def tweet(self):
         print "tweeting {0}".format(self.name)
         return self._tweet()

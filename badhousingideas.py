@@ -167,4 +167,4 @@ housing = Robot("Bad Housing Ideas",tweet,minutes=85,uk_hours=True)
 RobotMaster().register(housing)
 
 if __name__ == "__main__":
-    housing.populate(20)
+    housing.tweet()
