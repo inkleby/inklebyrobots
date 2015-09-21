@@ -6,6 +6,7 @@ Created on 19 Sep 2015
 
 import math
 import time
+import datetime
 import twitter
 
 class RobotMaster(object):
@@ -31,7 +32,7 @@ class RobotMaster(object):
     def retweet(self,tweets):
         
         if self.retweet_creds and tweets:
-            api = twitter.api(**self.retweet_creds)
+            api = twitter.Api(**self.retweet_creds)
             for t in tweets:
                 api.PostRetweet(t.id)
         
@@ -48,7 +49,7 @@ class RobotMaster(object):
                 if result:
                     if isinstance(result,list):
                         tweets.extend(result)
-                    if isinstance(result,dict):
+                    if isinstance(result,twitter.status.Status):
                         tweets.append(result)
 
         self.retweet(tweets)
@@ -63,6 +64,7 @@ class Robot(object):
         self.name = name
         self.minutes = 0
         self.hours = 0 
+        self.uk_hours = False
         self.force_run = False
         self._tweet = tweet_function
         self.__dict__.update(**kwargs)
@@ -76,6 +78,11 @@ class Robot(object):
             print "forcing"
             return True
         
+        if self.uk_hours:
+            hour = datetime.datetime.now().hour
+            if hour <6 or hour > 22:
+                return False
+        
         lengths = ['minutes','hours']
         for l in lengths:
             if getattr(self,l):
@@ -88,3 +95,9 @@ class Robot(object):
         print "tweeting {0}".format(self.name)
         return self._tweet()
         print "done"
+        
+    def populate(self,number_to_generate=50):
+        #adds 50 entries in quick succession
+        for x in range(0,number_to_generate):
+            self.tweet()
+            time.sleep(2)
