@@ -73,7 +73,7 @@ def do_process():
     return [result]
     
     
-illustrations = Robot("Old Illustrations",do_process,minutes=25)
+illustrations = Robot("Old Illustrations",do_process,minutes=79)
 
 RobotMaster().register(illustrations)
 
