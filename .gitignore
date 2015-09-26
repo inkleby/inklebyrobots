@@ -1,5 +1,6 @@
 *.pyc
 credentials.py
+fabfile.py
 *.pydevproject
 .metadata
 .gradle
