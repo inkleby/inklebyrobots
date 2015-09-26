@@ -83,7 +83,7 @@ class FOIRequest(object):
     
     def __init__(self,response):
         self.name = response['foi/_text']
-        self.url = response['foi']
+        self.url = response['foi'].split("#")[0]
         self.status = response['status']
         
         """ split description up into different features"""
