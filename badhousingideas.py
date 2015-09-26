@@ -162,7 +162,7 @@ def tweet():
         return api.PostUpdate(generate())
     except twitter.error.TwitterError,e:
         print e
-housing = Robot("Bad Housing Ideas",tweet,minutes=85,uk_hours=True)
+housing = Robot("Bad Housing Ideas",tweet,minutes=111,uk_hours=True)
 
 RobotMaster().register(housing)
 

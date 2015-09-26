@@ -6,5 +6,8 @@ basic robot controller used for simple registration of new bots into the timing 
 
 ##Current Robots
 
-- @oldillustration - Tweets images from the British Library's flickr collection of scanned illustrations every 25 minutes.
+- @oldillustration - Tweets images from the British Library's flickr collection of scanned illustrations every 79 minutes.
+- @badhousingideas - Creates a random housing policy from a dictionary of verbs every 111 minutes.
+- @randomfoi - Tweets a random sucessful foi request every 141 minutes.
+
 

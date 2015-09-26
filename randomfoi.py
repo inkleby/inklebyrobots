@@ -142,7 +142,7 @@ def tweet():
     except twitter.error.TwitterError,e:
         print e
         
-randomfoi = Robot("Randomfoi",tweet,minutes=130,uk_hours=True)
+randomfoi = Robot("Randomfoi",tweet,minutes=141,uk_hours=True)
 
 RobotMaster().register(randomfoi)
 
