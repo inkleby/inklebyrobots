@@ -47,7 +47,7 @@ class Schedule(object):
         
         status = self.tweet
         if link:
-            status + " " + link
+            status += " " + link
     
         result = tweet(status,self.media)
     
