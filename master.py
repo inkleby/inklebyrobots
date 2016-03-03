@@ -9,6 +9,8 @@ import oldillustration
 import badhousingideas
 import randomfoi
 import credentials
+import moon_rover
+
 r = RobotMaster()
 r.register_retweet(credentials.twitter_inklebyrobots)
 r.run()

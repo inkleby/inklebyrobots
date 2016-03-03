@@ -9,8 +9,12 @@ import time
 import datetime
 import twitter
 
+
+
 class RobotMaster(object):
-    
+    """
+    robot master checks all registered bots to see if they should tweet
+    """
     bots = []
     
     def __init__(self):
@@ -58,8 +62,10 @@ class RobotMaster(object):
 
 
 class Robot(object):
-    
-    def __init__(self,name,tweet_function,*args,**kwargs):
+    """
+    Robot class that holds the tweet functions
+    """
+    def __init__(self,name,tweet_function=None,*args,**kwargs):
         
         self.name = name
         self.minutes = 0
@@ -108,3 +114,5 @@ class Robot(object):
         for x in range(0,number_to_generate):
             self.tweet()
             time.sleep(2)
+    
+
