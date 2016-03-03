@@ -14,8 +14,11 @@ import os
  
 def tweet(status,file_url):
     print "tweeting"
-    api = twitter.Api(**credentials.twitter_moonrover)   
-    return api.PostMedia(status,file_url)
+    api = twitter.Api(**credentials.twitter_moonrover)
+    if file_url:
+        return api.PostMedia(status,file_url)
+    else:
+        return api.PostUpdate(status)
     
     
 def make_link(url):
