@@ -9,7 +9,7 @@ import twitter
 import credentials
 import bitly_api
     
-from classes import Robot, RobotMaster
+from controllers import Robot, RobotMaster
 
 url_template = 'http://farm%(farm_id)s.staticflickr.com/%(server_id)s/%(photo_id)s_%(secret)s.jpg'
 web_url = "https://www.flickr.com/photos/britishlibrary/{0}"

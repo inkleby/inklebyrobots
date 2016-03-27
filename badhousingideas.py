@@ -10,7 +10,7 @@ import random
 import twitter
 import credentials
 
-from classes import Robot, RobotMaster
+from controllers import Robot, RobotMaster
 
 random.seed()
 

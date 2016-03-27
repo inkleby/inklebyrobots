@@ -15,7 +15,7 @@ import requests
 import random
 import datetime
 
-from classes import Robot, RobotMaster
+from controllers import Robot, RobotMaster
 
     
 def make_link(url):

@@ -65,7 +65,7 @@ def import_csv(s_file,unicode=False):
     def fix_bom(row):
         nrow = []
         for u in row:
-            if u.startswith(u'\ufeff'):
+            if type(u) in [str,unicode] and u.startswith(u'\ufeff'):
                 u = u[1:]
             nrow.append(u)
         return nrow
@@ -298,6 +298,11 @@ class QuickList(object):
 
         return {make_safe(h): x for x, h in enumerate(self.header)}
 
+
+    def shuffle(self):
+        import random
+        random.shuffle(self.data)
+            
 
     def __iter__(self,indexes=None):
         """

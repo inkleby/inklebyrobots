@@ -4,7 +4,7 @@ Created on 19 Sep 2015
 @author: Alex
 '''
 
-from classes import RobotMaster
+from controllers import RobotMaster
 import oldillustration
 import badhousingideas
 import randomfoi

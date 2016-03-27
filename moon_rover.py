@@ -9,7 +9,7 @@ import credentials
 import bitly_api
 import datetime    
 from funcs.ql import QuickList
-from classes import Robot, RobotMaster
+from controllers import Robot, RobotMaster
 import os
  
 def tweet(status,file_url):
