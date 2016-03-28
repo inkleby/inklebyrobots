@@ -51,12 +51,12 @@ class FlexiBook(Workbook):
 
         
 
-def import_csv(s_file,unicode=False):
+def import_csv(s_file,use_unicode=False):
     """
     imports csvs, returns head/body - switch to use different csv processor
     """
     body = []
-    if unicode:
+    if use_unicode:
         mod = ucsv
     else:
         mod = csv
@@ -248,7 +248,7 @@ class QuickList(object):
         wb.add_sheet_from_ql(self)
         return wb
 
-    def open(self, filename, tab="", header_row=0,unicode=False):
+    def open(self, filename, tab="", header_row=0,use_unicode=False):
         """
         populate this ql from a file
         """

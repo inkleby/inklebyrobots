@@ -10,7 +10,7 @@ import random
 import twitter
 import credentials
 
-from controllers import Robot, RobotMaster
+from robot_core import Robot
 
 random.seed()
 
@@ -114,7 +114,7 @@ verbs = ["is","are","has","get","see","need","know","would","find",
          "juice","limit","luck","milk","mixed","mouth","pipe","please","seat","stable",
          "storm","team","amazing","bat","beach","blank","busy","catch","chain","cream",
          "crew","detail","detailed","interview","kid","mark","match","pain","pleasure",
-         "score","screw","sex","sharp","shop","shower","suit","tone","window","wise",
+         "score","screw","sharp","shop","shower","suit","tone","window","wise",
          "band","block","bone","calendar","cap","coat","contest","court","cup",
          "district","finger","garage","guarantee","hole","hook","implement",
          "layer","lecture","lie","married","narrow","nose","partner","profile","respect",
@@ -149,22 +149,26 @@ for w in words:
     formats.append("{0} to xxx".format(w))
     formats.append("xxx to {0}".format(w))
 
-def generate():
-
-    format = random.choice(formats)
-    verb = random.choice(verbs)
-    return format.replace("xxx",verb.title())
+        
+class HousingRobot(Robot):
+    handle = "badhousingideas"
+    minutes=111
+    uk_hours = True
+    twitter_credentials = credentials.twitter_badhousing
     
-def tweet():
+    def generate(self):
+        """
+        mixes format and phrase
+        """
+        chosen_format = random.choice(formats)
+        verb = random.choice(verbs)
+        phrase = chosen_format.replace("xxx",verb.title())
+        return phrase
+    
+    def tweet(self):
+    
+        return self._tweet(self.generate())
 
-    api = twitter.Api(**credentials.twitter_badhousing)
-    try:
-        return api.PostUpdate(generate())
-    except twitter.error.TwitterError,e:
-        print e
-housing = Robot("Bad Housing Ideas",tweet,minutes=111,uk_hours=True)
-
-RobotMaster().register(housing)
 
 if __name__ == "__main__":
-    housing.tweet()
+    HousingRobot().tweet()
