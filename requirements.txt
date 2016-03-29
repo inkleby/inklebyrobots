@@ -4,3 +4,6 @@ pyopenssl
 ndg-httpsclient
 pyasni
 bitly_api
+pytumblr
+imgurpython
+TwitterAPI

@@ -7,11 +7,13 @@ All robots are subclasses of this one.
 
 @author: @alexparsons
 '''
-
+import os
 import math
+import sys
 import time
 import datetime
 import twitter
+from TwitterAPI import TwitterAPI
 import six
 
 class MetaRobot(type):
@@ -59,6 +61,54 @@ class BaseRobot(object,six.with_metaclass(MetaRobot)):
         except twitter.error.TwitterError,e:
             print e
             
+    def _tweet_video(self,status,media_location=None):
+        """
+        chunked method to upload video
+        #https://github.com/geduldig/TwitterAPI/blob/master/examples/upload_video.py
+        """
+        
+        api = TwitterAPI(**self.__class__.twitter_credentials)
+        
+        
+        bytes_sent = 0
+        total_bytes = os.path.getsize(media_location)
+        file = open(media_location, 'rb')
+        
+        def check_status(r):
+            if r.status_code < 200 or r.status_code > 299:
+                print(r.status_code)
+                print(r.text)
+                sys.exit(0)
+
+        
+        r = api.request('media/upload', {'command':'INIT',
+                                         'media_type':'video/mp4',
+                                         'total_bytes':total_bytes})
+        check_status(r)
+        
+        media_id = r.json()['media_id']
+        segment_id = 0
+        
+        while bytes_sent < total_bytes:
+            chunk = file.read(4*1024*1024)
+            r = api.request('media/upload', {'command':'APPEND',
+                                             'media_id':media_id,
+                                             'segment_index':segment_id},
+                                             {'media':chunk})
+            check_status(r)
+            segment_id = segment_id + 1
+            bytes_sent = file.tell()
+            print('[' + str(total_bytes) + ']', str(bytes_sent))
+
+        r = api.request('media/upload', {'command':'FINALIZE',
+                                         'media_id':media_id})
+        check_status(r)
+        
+        r = api.request('statuses/update', {'status':status,
+                                            'media_ids':media_id})
+        check_status(r)
+        return [r.json()['id']]
+        
     @classmethod
     def tweet_and_retweet(cls):
         """
@@ -74,7 +124,10 @@ class BaseRobot(object,six.with_metaclass(MetaRobot)):
         if cls.retweet_credentials and tweets:
             api = twitter.Api(**cls.retweet_credentials)
             for t in tweets:
-                api.PostRetweet(t.id)
+                if isinstance(t,long): # allows for other api return ids rather than expected object
+                    api.PostRetweet(t)
+                else:
+                    api.PostRetweet(t.id)
 
 class Robot(BaseRobot):
     """

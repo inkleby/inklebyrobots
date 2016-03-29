@@ -1,7 +1,5 @@
 '''
-Created on 13 Sep 2015
-
-@author: alex
+Moon Rover - tweets the moon rover tweets off a schedule
 '''
 
 import credentials

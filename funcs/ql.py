@@ -163,6 +163,20 @@ class QuickList(object):
         self.data = []
         self.filename = None
 
+    def union(self,list_of_qls):
+        """
+        merge identical header files
+        """
+        
+        if not self.header:
+            self.header = list_of_qls[0].header
+            
+        for l in list_of_qls:
+            self.data.extend(l.data)
+            
+        return self
+        
+
     def add(self,row):
         try:
             assert len(row) == len(self.header)
