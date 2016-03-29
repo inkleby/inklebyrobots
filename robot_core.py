@@ -124,7 +124,7 @@ class BaseRobot(six.with_metaclass(MetaRobot)):
         if cls.retweet_credentials and tweets:
             api = twitter.Api(**cls.retweet_credentials)
             for t in tweets:
-                if isinstance(t,long): # allows for other api return ids rather than expected object
+                if type(t) in [long,int]: # allows for other api return ids rather than expected object
                     api.PostRetweet(t)
                 else:
                     api.PostRetweet(t.id)
