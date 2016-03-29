@@ -17,7 +17,7 @@ class CultureReuse(Robot, TumblrRobot):
     twitter_credentials = credentials.twitter_culturalreuse
     retweet_credentials = credentials.twitter_inklebyrobots
     tumblr_blog = "culturereuse"
-    minutes= 45
+    minutes= 121
 
     def tweet(self):
         """

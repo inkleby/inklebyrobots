@@ -175,7 +175,7 @@ class Robot(BaseRobot):
         if cls().check(**kwargs):
             cls.tweet_and_retweet()
 
-    def populate(self,number_to_generate=50):
+    def populate(self,number_to_generate=10):
         """
         add 50 entries in quick succession
         """
