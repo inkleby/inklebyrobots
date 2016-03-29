@@ -1,6 +1,11 @@
 '''
 Basic flickr bot that reads a random page from the british library's collection and tweets it
 '''
+
+if __name__ == "__main__":
+    import sys
+    sys.path.append("..")
+
 import flickrapi
 import random 
 import credentials

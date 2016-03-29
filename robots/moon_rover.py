@@ -2,6 +2,10 @@
 Moon Rover - tweets the moon rover tweets off a schedule
 '''
 
+if __name__ == "__main__":
+    import sys
+    sys.path.append("..")
+
 import credentials
 from robot_schedule import ScheduleRobot
 import os

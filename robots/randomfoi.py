@@ -8,6 +8,11 @@ randomfoi - tweets a random foi from whatdotheyknow.com
 
 @author: alex
 '''
+
+if __name__ == "__main__":
+    import sys
+    sys.path.append("..")
+
 import credentials
 import random
 import datetime

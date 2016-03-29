@@ -6,6 +6,10 @@ Created on 21 Jun 2015
 We have a shortage of housing, not bad housing ideas. Yet it is easier to train a robot to make these.
 '''
 
+if __name__ == "__main__":
+    import sys
+    sys.path.append("..")
+
 import random
 import twitter
 import credentials
