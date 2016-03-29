@@ -2,7 +2,7 @@
 Cultural Reuse Project - tweets the stored tweets off a schedule
 the culture_chef built earlier
 '''
-if __name__ == "_main__":
+if __name__ == "__main__":
     import sys
     sys.path.append("..")
 
