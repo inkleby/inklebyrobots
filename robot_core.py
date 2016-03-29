@@ -29,7 +29,7 @@ class MetaRobot(type):
 
         ncls = super(MetaRobot, cls).__new__(cls, name, parents, dct)
         
-        if abstract == False:
+        if abstract == False and hasattr(ncls,"_all_robots"):
             ncls._all_robots.append(ncls)
             
         return ncls
