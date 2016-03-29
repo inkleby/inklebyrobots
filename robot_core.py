@@ -35,7 +35,7 @@ class MetaRobot(type):
         return ncls
 
 
-class BaseRobot(object,six.with_metaclass(MetaRobot)):
+class BaseRobot(six.with_metaclass(MetaRobot)):
     """
     handles basic communication with twitter
     """
