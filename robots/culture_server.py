@@ -15,7 +15,6 @@ import os
 class CultureReuse(Robot, TumblrRobot, GfycatRobot):
     handle = "CultureReuseBot"
     twitter_credentials = credentials.twitter_culturalreuse
-    retweet_credentials = credentials.twitter_inklebyrobots
     tumblr_blog = "culturereuse"
     minutes= 121
 
