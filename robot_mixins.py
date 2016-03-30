@@ -13,7 +13,10 @@ from imgurpython import ImgurClient
 import time
 
 class GfycatRobot(object):
-
+    """
+    allows uploading to gyfcat
+    
+    """
     def _upload_gif(self,file_url):
         client = GfycatClient()
         print "uploading file to Gfycat"
@@ -24,6 +27,9 @@ class GfycatRobot(object):
 
 
 class ImgurRobot(object):
+    """
+    imgur related functions
+    """
     imgur_creds = credentials.imgur_credentials
 
     def get_image(self,image_id):
@@ -111,6 +117,12 @@ class TumblrRobot(object):
             
             
         if results:
+            """
+            return the short url of a page
+            When uploading a video you seem to be given
+            a temporary id - so you need to wait till the post
+            with correct content shows up officially.
+            """
             allowed_loops = 20
             latest = None
             while latest == None and allowed_loops > 0:
