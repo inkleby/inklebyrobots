@@ -1,16 +1,11 @@
 '''
-Created on 19 Sep 2015
-
-@author: Alex
+Master control script - run every minute and will check all robots in the 
+robots directory to see if they should speak
 '''
 
-from controllers import RobotMaster
-import oldillustration
-import badhousingideas
-import randomfoi
 import credentials
-import moon_rover
+from robot_core import Robot
+from robots import * # triggers import of all robots in that directory
 
-r = RobotMaster()
-r.register_retweet(credentials.twitter_inklebyrobots)
-r.run()
+Robot.retweet_credentials = credentials.twitter_inklebyrobots
+Robot.run_all()
