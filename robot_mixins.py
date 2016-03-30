@@ -5,11 +5,23 @@ Created on 28 Mar 2016
 '''
 
 import bitly_api
-
+from gfycat.client import GfycatClient
 import pytumblr
 import requests
 import credentials
 from imgurpython import ImgurClient
+import time
+
+class GfycatRobot(object):
+
+    def _upload_gif(self,file_url):
+        client = GfycatClient()
+        print "uploading file to Gfycat"
+        result = client.upload_from_file(file_url)
+        name = result['gfyName']
+        url = "https://gfycat.com/{0}".format(name)
+        return url
+
 
 class ImgurRobot(object):
     imgur_creds = credentials.imgur_credentials
@@ -69,32 +81,55 @@ class TumblrRobot(object):
         """
         send image to tumblr
         """
+        results = {}
         client = pytumblr.TumblrRestClient(**self.__class__.tumblr_creds)
         if self.__class__.tumblr_blog:
             if video_url:
                 print "sending video to {0}".format(self.__class__.tumblr_blog)
-                client.create_video(self.__class__.tumblr_blog,
-                                    state="published",
-                                    data=video_url,
-                                    tags=tags,
-                                    format="html",
-                                    caption=text)                
+                results = client.create_video(self.__class__.tumblr_blog,
+                                            state="published",
+                                            data=video_url,
+                                            tags=tags,
+                                            format="html",
+                                            caption=text)                
                 
             elif image_url:
                 print "sending image to {0}".format(self.__class__.tumblr_blog)
-                client.create_photo(self.__class__.tumblr_blog,
-                                    state="published",
-                                    tags=tags,
-                                    format="markdown",
-                                    source=image_url,
-                                    caption=text)
+                results = client.create_photo(self.__class__.tumblr_blog,
+                                            state="published",
+                                            tags=tags,
+                                            format="markdown",
+                                            source=image_url,
+                                            caption=text)
             else:
                 print "sending text to {0}".format(self.__class__.tumblr_blog)
-                client.create_text(self.__class__.tumblr_blog,
-                                   state="published",
-                                   title="",
-                                   tags=tags,
-                                   body=text)
+                results = client.create_text(self.__class__.tumblr_blog,
+                                           state="published",
+                                           title="",
+                                           tags=tags,
+                                           body=text)
+            
+            
+        if results:
+            allowed_loops = 20
+            latest = None
+            while latest == None and allowed_loops > 0:
+                post = client.posts(self.__class__.tumblr_blog,limit=1)
+                post = post['posts'][0]
+                if text not in post['trail'][0]['content_raw']:
+                    print "no url yet, waiting for processing"
+                    allowed_loops -= 1
+                    time.sleep(10)
+                else:
+                    latest = True
+                    
+            short_url = post['short_url']
+            return short_url
+            
+            
+        else:
+            url = None
+        return url
 
 
 if __name__ == "__main__":

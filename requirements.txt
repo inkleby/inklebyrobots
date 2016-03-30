@@ -7,3 +7,4 @@ bitly_api
 pytumblr
 imgurpython
 TwitterAPI
+gfycat

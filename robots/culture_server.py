@@ -8,11 +8,11 @@ if __name__ == "__main__":
 
 import credentials
 from robot_core import Robot
-from robot_mixins import TumblrRobot
+from robot_mixins import TumblrRobot, GfycatRobot
 from funcs.ql import QuickList
 import os
  
-class CultureReuse(Robot, TumblrRobot):
+class CultureReuse(Robot, TumblrRobot, GfycatRobot):
     handle = "CultureReuseBot"
     twitter_credentials = credentials.twitter_culturalreuse
     retweet_credentials = credentials.twitter_inklebyrobots
@@ -33,14 +33,22 @@ class CultureReuse(Robot, TumblrRobot):
         
         for r in ql:
             file_loc = os.path.join(library,r["file_name"])
-            tweet = r["nice_title"]
+            text = r["nice_title"]
             tags = [
                     r['title'],
                     str(r['year']),
                     "culture reuse"                   
                     ]
-            tweets = self._tweet_video(tweet,file_loc)
-            self._tumblr(tweet,video_url=str(file_loc),tags=tags)
+            
+            gif_url = self._upload_gif(file_loc)
+            
+            tumblr_text = '<p>{0}</p><p><a href="{1}">get from gfycat</a></p>'.format(text,gif_url)
+            
+            tumblr_link = self._tumblr(tumblr_text,video_url=str(file_loc),tags=tags)
+            if tumblr_link:
+                text += " {0}".format(tumblr_link)
+            tweets = self._tweet_video(text,file_loc)
+            
             break
             
         return tweets
