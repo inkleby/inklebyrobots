@@ -11,6 +11,37 @@ import requests
 import credentials
 from imgurpython import ImgurClient
 import time
+from Pastebin import PastebinAPI, PastebinError
+
+class PastebinRobot(object):
+    api_key = credentials.pastebin_api_key
+    username = credentials.pastebin_username
+    password = credentials.pastebin_password
+    user_key = None
+    
+    @classmethod
+    def connect_to_user(cls):
+        if cls.user_key == None:
+            cls.user_key = PastebinAPI().generate_user_key(cls.api_key,
+                                                       cls.username,
+                                                       cls.password)
+            
+    def _paste_to_pastebin(self,text):
+        """
+        dump text to pastebin and return link
+        """
+        if self.__class__.user_key == None:
+            self.__class__.connect_to_user()
+        try:
+            
+            link =  PastebinAPI().paste(self.__class__.api_key,
+                                       text,
+                                       api_user_key = self.__class__.user_key)
+        except PastebinError as e:
+            print e
+            link = None
+            
+    
 
 class GfycatRobot(object):
     """

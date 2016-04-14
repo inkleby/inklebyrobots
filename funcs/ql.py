@@ -316,22 +316,9 @@ class QuickList(object):
     def shuffle(self):
         import random
         random.shuffle(self.data)
-            
-
-    def __iter__(self,indexes=None):
-        """
-        generator that returns an object that's
-         __getitem__ accepts the column name to return a cell instance.
-        
-        so you can go:
-        
-        for r in ql:
-            p = r["person"]
-            
-        to get the info out of the person column
          
-        """
-
+    def construct_item_row_class(self):
+        
         header_dict = self.header_di()
 
         class ItemRow(list):
@@ -349,6 +336,31 @@ class QuickList(object):
 
             def __setitem__(self, key, value):
                 return super(ItemRow, self).__setitem__(self._key_to_index(key), value)
+            
+        return ItemRow
+            
+
+    def get_row(self,row_id):
+        
+        ItemRow = self.construct_item_row_class()
+        
+        return ItemRow(self.data[row_id])
+
+    def __iter__(self,indexes=None):
+        """
+        generator that returns an object that's
+         __getitem__ accepts the column name to return a cell instance.
+        
+        so you can go:
+        
+        for r in ql:
+            p = r["person"]
+            
+        to get the info out of the person column
+         
+        """
+
+        ItemRow = self.construct_item_row_class()
 
         # puts back any changes into the main generator to update the
         # QuickList 

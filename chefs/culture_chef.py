@@ -17,7 +17,14 @@ import random
 import subprocess
 import shutil
 
-
+def move_good_clips():
+    ql = QuickList().open("F:\\mp4s\\joined.xls")
+    
+    folder = "F:\\mp4s"
+    dest = "F:\\mp4s\\good"
+    for r in ql:
+        shutil.move(os.path.join(folder,r["file_name"]),os.path.join(dest,r["file_name"]))
+    
 
 def create_preview_from_schedule():
     """
@@ -149,7 +156,7 @@ class Film(object):
                 
   
     @classmethod          
-    def find_films(cls,search_term="collection:(Film_Noir) AND mediatype:(movies)"):
+    def find_films(cls,search_term="collection:(Feature_Films) AND mediatype:(movies)"):
         """
         download films and process
         """
@@ -157,17 +164,18 @@ class Film(object):
         
         films = [x['identifier'] for x in films]
         
-        random_group = random.sample(films,50)
+        random_group = random.sample(films,100)
         
         for t in random_group:
             print t
             try:
                 fi = cls(t)
-                if fi.failed == False:
-                    fi.find_gifs()
             except Exception:
-                print "skipping error"        
-        
+                print "failure"
+                fi = None
+            if fi and fi.failed == False:
+                fi.create_gifs()
+
 
     
     def __init__(self,ident):
@@ -287,11 +295,14 @@ class Film(object):
             self.date = ""
         
         if self.date:
-            self.nice_name = "{0} ({1})".format(self.title,self.date)
+            self.nice_name = u"{0} ({1})".format(self.title,self.date)
         else:
             self.nice_name = self.title
-            
-        print self.nice_name
+        
+        try:    
+            print self.nice_name
+        except Exception:
+            pass
         
         
             
@@ -426,6 +437,7 @@ if __name__ == "__main__":
     #Film.find_films()
     #Film.all_schedules()
     #create_preview_from_schedule()
+    move_good_clips()
     #f = Film("GuestInTheHouse1944")
     #f.produce_schedule()
     #f.load_meta()
