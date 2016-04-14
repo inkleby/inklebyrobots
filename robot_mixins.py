@@ -23,7 +23,7 @@ class GfycatRobot(object):
         result = client.upload_from_file(file_url)
         name = result['gfyName']
         url = "https://gfycat.com/{0}".format(name)
-        return url
+        return name, url
 
 
 class ImgurRobot(object):
@@ -83,7 +83,7 @@ class TumblrRobot(object):
     tumblr_creds = credentials.tumblr_credentials
     tumblr_blog = ""
     
-    def _tumblr(self,text,image_url=None,video_url=None,tags=[]):
+    def _tumblr(self,text,image_url=None,video_url=None,tags=[],keyword="unlikelytocomeupkeyword"):
         """
         send image to tumblr
         """
@@ -128,7 +128,8 @@ class TumblrRobot(object):
             while latest == None and allowed_loops > 0:
                 post = client.posts(self.__class__.tumblr_blog,limit=1)
                 post = post['posts'][0]
-                if text not in post['trail'][0]['content_raw']:
+                remote_body = post['trail'][0]['content_raw']
+                if text not in remote_body and keyword not in remote_body:
                     print "no url yet, waiting for processing"
                     allowed_loops -= 1
                     time.sleep(10)
