@@ -19,7 +19,7 @@ import time
 
  
  
-class AmendmentBot(Robot, PastebinRobot):
+class AmendmentBot(Robot):
     handle = "USAmendments"
     twitter_credentials = credentials.twitter_almostamends
     minutes= 135

@@ -11,7 +11,8 @@ import requests
 import credentials
 from imgurpython import ImgurClient
 import time
-from Pastebin import PastebinAPI, PastebinError
+"""
+#from Pastebin import PastebinAPI, PastebinError
 
 class PastebinRobot(object):
     api_key = credentials.pastebin_api_key
@@ -27,9 +28,9 @@ class PastebinRobot(object):
                                                        cls.password)
             
     def _paste_to_pastebin(self,text):
-        """
+
         dump text to pastebin and return link
-        """
+
         if self.__class__.user_key == None:
             self.__class__.connect_to_user()
         try:
@@ -41,7 +42,7 @@ class PastebinRobot(object):
             print e
             link = None
             
-    
+"""    
 
 class GfycatRobot(object):
     """
