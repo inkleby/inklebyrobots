@@ -12,7 +12,6 @@ if __name__ == "__main__":
 import credentials
 from robot_core import Robot
 from funcs.ql import QuickList
-from robot_mixins import PastebinRobot
 import os
 import time
  
