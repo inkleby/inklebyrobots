@@ -89,7 +89,7 @@ class AmendmentBot(Robot):
                     allowed_length = 141 - 22
                 elif row['source_code'] == "A":
                     #link = "book"
-                    #allowed_length = 141 -22
+                    allowed_length = 141
                     link = None
                 else:
                     link = None
