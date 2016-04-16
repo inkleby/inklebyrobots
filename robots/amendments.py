@@ -22,7 +22,7 @@ import time
 class AmendmentBot(Robot, PastebinRobot):
     handle = "USAmendments"
     twitter_credentials = credentials.twitter_almostamends
-    minutes= 121
+    minutes= 135
     
     def get_amendment_link(self,row):
         """constructs url page"""
@@ -89,8 +89,9 @@ class AmendmentBot(Robot, PastebinRobot):
                     link = self.get_amendment_link(row)
                     allowed_length = 141 - 22
                 elif row['source_code'] == "A":
-                    link = "book"
-                    allowed_length = 141 -22
+                    #link = "book"
+                    #allowed_length = 141 -22
+                    link = None
                 else:
                     link = None
                     allowed_length  = 141
@@ -109,7 +110,7 @@ class AmendmentBot(Robot, PastebinRobot):
                 if link:
                     text += " " + link
                 
-                print text
+                self._tweet(text)
 
     
 if __name__ == "__main__":
