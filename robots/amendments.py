@@ -109,8 +109,8 @@ class AmendmentBot(Robot):
                 if link:
                     text += " " + link
                 
-                self._tweet(text)
+                return self._tweet(text)
 
     
 if __name__ == "__main__":
-    AmendmentBot().tweet()
+    AmendmentBot().populate(20)
